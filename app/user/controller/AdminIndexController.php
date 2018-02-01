@@ -130,4 +130,26 @@ class AdminIndexController extends AdminBaseController
             $this->error('数据传入失败！');
         }
     }
+    /**
+     * 会员购买记录
+     */
+    public function historybuy($id)
+    {
+        $where   = [];
+        //接收到的搜索框
+        $request = input('status');
+        //if接收到uid
+        if (!empty($request)) {
+            $where['status'] = $request;//echo $where['status'];//echo "asdfgjhgf";
+        }
+        $usersQuery = Db::name('portal_order');
+        $list = $usersQuery->whereOr($where)->where('uid', $id)->order("time DESC")->paginate(10);//print_r($list);
+        // 获取分页显示
+        $page = $list->render();
+        $this->assign('id', $id);
+        $this->assign('list', $list);
+        $this->assign('page', $page);
+        // 渲染模板输出
+        return $this->fetch('historybuy');
+    }
 }
