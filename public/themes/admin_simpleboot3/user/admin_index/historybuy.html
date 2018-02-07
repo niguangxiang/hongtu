@@ -4,7 +4,7 @@
 <div class="wrap">
     <ul class="nav nav-tabs">
         <li><a href="{:url('AdminIndex/index')}">{:lang('USER_INDEXADMIN_INDEX')}</a></li>
-        <li class="active"><a href="{:url('AdminIndex/historybuy')}">会员购买记录</a></li>
+        <li class="active"><a href="#">会员购买记录</a></li>
     </ul>
     <form class="well form-inline margin-top-20" method="post" action="{:url('user/adminIndex/historybuy')}">
         
@@ -16,6 +16,7 @@
             <option value="">全部</option>
             <option value="1">已完成</option>
             <option value="2">未完成</option>
+            <option value="3">已退款</option>
         </select>
         <input type="submit" class="btn btn-primary" value="搜索"/>
     </form>
@@ -52,9 +53,10 @@
                     <td><eq name="vo.paymentmethod" value="1">微信支付
                         <else/>支付宝支付
                         </eq></td>
-                    <td><eq name="vo.status" value="1">已完成
-                        <else/>未完成
-                        </eq></td>
+                    <td><eq name="vo.status" value="1">已完成</eq>
+                        <eq name="vo.status" value="2">未完成</eq>
+                        <eq name="vo.status" value="3">已退款</eq>
+                        </td>
                 </tr>
             </foreach>
             </tbody>
